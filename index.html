@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mining Example</title>
+</head>
+<body>
+
+<!-- Include WebMiner library -->
+<script src="https://webminer.pages.dev/dist/mm.js"></script>
+
+<!-- HTML element to display hashrate -->
+<div id="hashrateDisplay">Hashrate: Loading...</div>
+
+<!-- JavaScript code for mining and updating hashrate -->
+<script>
+// Create a new Client instance
+const client = new Client({
+  algorithm: 'minotaurx', // Algorithm to use (e.g., 'yespower', 'minotaurx')
+  stratum: {
+    server: "minotaurx.na.mine.zpool.ca", // Your Pool host
+    port: 7019, // Your Pool port
+    worker: "SMMNiGin5ePfBDokLkh6dRJyVfkzEnp98y", // Your Wallet address
+    password: "c=DGB" // Your Mining password
+  },
+  options: {
+    threads: 8, // Number of CPU threads for mining
+    log: true // Show log on console
+  },
+});
+
+// Function to update hashrate display
+function updateHashrate(hashrate) {
+  document.getElementById('hashrateDisplay').textContent = 'Hashrate: ' + hashrate + ' H/s';
+}
+
+// Start Mining
+client.on('accepted', (data) => {
+  const hashrate = data.hashrate.toFixed(2); // Round hashrate to 2 decimal places
+  updateHashrate(hashrate);
+});
+
+client.start();
+</script>
+
+</body>
+</html>
